@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="vi" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giải Cứu Linh Hồn Lão Hạc</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    .font-title {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .font-body {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; filter: blur(20px); }
+      50% { opacity: 0.7; filter: blur(30px); }
+    }
+    
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+      25%, 75% { opacity: 0.9; }
+    }
+    
+    @keyframes drift {
+      0% { transform: translateX(0) translateY(0); }
+      25% { transform: translateX(10px) translateY(-5px); }
+      50% { transform: translateX(5px) translateY(5px); }
+      75% { transform: translateX(-5px) translateY(-3px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+    
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes sand-fall {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(0); }
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-glow {
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    
+    .animate-flicker {
+      animation: flicker 3s ease-in-out infinite;
+    }
+    
+    .animate-drift {
+      animation: drift 8s ease-in-out infinite;
+    }
+    
+    .animate-fade-in {
+      animation: fade-in-up 0.8s ease-out forwards;
+    }
+    
+    .fog-layer {
+      background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(139, 119, 101, 0.1) 30%, 
+        rgba(139, 119, 101, 0.2) 50%, 
+        rgba(139, 119, 101, 0.1) 70%, 
+        transparent 100%);
+    }
+    
+    .vignette {
+      box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+    }
+    
+    .text-shadow-dark {
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    }
+    
+    .btn-ancient {
+      background: linear-gradient(135deg, #5c4a3d 0%, #3d3229 100%);
+      border: 2px solid #8b7355;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-ancient:hover {
+      background: linear-gradient(135deg, #6d5a4a 0%, #4d4239 100%);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    .card-ancient {
+      background: linear-gradient(145deg, rgba(61, 50, 41, 0.95) 0%, rgba(45, 37, 30, 0.98) 100%);
+      border: 1px solid rgba(139, 115, 85, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    .progress-dog {
+      transition: left 0.8s ease-out;
+    }
+    
+    .input-ancient {
+      background: rgba(30, 25, 20, 0.8);
+      border: 1px solid rgba(139, 115, 85, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .input-ancient:focus {
+      border-color: rgba(212, 175, 55, 0.6);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+      outline: none;
+    }
+    
+    .memory-fragment {
+      background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+    }
+    
+    .scene-transition {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full font-body text-stone-200 overflow-auto">
+  <div id="app-wrapper" class="min-h-full w-full relative" style="background: linear-gradient(180deg, #1a1510 0%, #2d2520 50%, #1a1510 100%);"><!-- Atmospheric Background Elements -->
+   <div class="absolute inset-0 overflow-hidden pointer-events-none"><!-- Fog layers -->
+    <div class="fog-layer absolute inset-0 animate-drift"></div><!-- Floating particles -->
+    <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-amber-200/20 rounded-full animate-float" style="animation-delay: 0s;"></div>
+    <div class="absolute top-1/3 right-1/3 w-1 h-1 bg-amber-100/30 rounded-full animate-float" style="animation-delay: 1s;"></div>
+    <div class="absolute top-2/3 left-1/2 w-1.5 h-1.5 bg-amber-200/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 right-1/4 w-1 h-1 bg-amber-100/25 rounded-full animate-float" style="animation-delay: 3s;"></div><!-- Ambient glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-amber-900/30 rounded-full animate-glow"></div>
+   </div><!-- Vignette overlay -->
+   <div class="vignette absolute inset-0 pointer-events-none"></div><!-- Main Content Container -->
+   <div class="relative z-10 min-h-full flex flex-col"><!-- Header with Progress -->
+    <header class="p-4 md:p-6">
+     <div class="max-w-4xl mx-auto"><!-- Title -->
+      <div class="text-center mb-4">
+       <h1 id="game-title" class="font-title text-2xl md:text-4xl font-bold text-amber-100 text-shadow-dark animate-flicker">Giải Cứu Linh Hồn Lão Hạc</h1>
+       <p id="game-subtitle" class="font-body text-sm md:text-lg text-stone-400 mt-1 italic">Hành trình xuyên thời gian của Thám Tử</p>
+      </div><!-- Progress Bar -->
+      <div id="progress-container" class="hidden">
+       <div class="relative bg-stone-800/60 rounded-full h-8 md:h-10 border border-stone-700/50 overflow-hidden">
+        <div id="progress-bar" class="absolute inset-y-0 left-0 bg-gradient-to-r from-amber-900/80 to-amber-700/80 rounded-full transition-all duration-700" style="width: 0%"></div><!-- Dog icon moving along progress -->
+        <div id="progress-dog" class="progress-dog absolute top-1/2 -translate-y-1/2 -translate-x-1/2 text-2xl md:text-3xl" style="left: 0%">
+         🐕
+        </div><!-- Lão Hạc at the end -->
+        <div class="absolute right-2 top-1/2 -translate-y-1/2 text-xl md:text-2xl opacity-50">
+         👴
+        </div><!-- Progress text -->
+        <div class="absolute inset-0 flex items-center justify-center"><span id="progress-text" class="text-xs md:text-sm font-semibold text-amber-100/90 drop-shadow-lg"> Mảnh ký ức: 0/10 </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header><!-- Main Game Area -->
+    <main class="flex-1 px-4 pb-6">
+     <div class="max-w-4xl mx-auto"><!-- START SCREEN -->
+      <div id="start-screen" class="animate-fade-in">
+       <div class="card-ancient rounded-2xl p-6 md:p-10 text-center"><!-- Atmospheric illustration -->
+        <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-6">
+         <div class="absolute inset-0 bg-gradient-to-b from-amber-900/20 to-transparent rounded-full animate-glow"></div>
+         <div class="absolute inset-4 flex items-center justify-center">
+          <div class="text-7xl md:text-8xl animate-float">
+           👴
+          </div>
+         </div>
+         <div class="absolute bottom-4 right-4 text-4xl md:text-5xl animate-float" style="animation-delay: 1s;">
+          🐕
+         </div><!-- Ghost effect -->
+         <div class="absolute inset-0 bg-gradient-to-t from-transparent via-amber-100/5 to-transparent rounded-full"></div>
+        </div>
+        <h2 class="font-title text-xl md:text-3xl text-amber-200 mb-4">Lời Kêu Gọi Từ Quá Khứ</h2>
+        <div class="max-w-xl mx-auto mb-6">
+         <p class="text-stone-300 text-base md:text-lg leading-relaxed mb-4 italic">"Cậu Vàng... Cậu Vàng của lão..."</p>
+         <p class="text-stone-400 text-sm md:text-base leading-relaxed">Linh hồn Lão Hạc đang bị giam cầm trong vòng lặp của ký ức đau thương. Những câu hỏi chưa được giải đáp, những day dứt chưa nguôi... Chỉ có Thám Tử Thời Gian mới có thể giải thoát cho Lão.</p>
+        </div><!-- Hourglass animation -->
+        <div class="flex justify-center mb-6">
+         <div class="text-4xl animate-pulse">
+          ⏳
+         </div>
+        </div>
+        <div class="space-y-4"><input type="text" id="player-name-input" placeholder="Nhập tên Thám Tử của bạn..." class="input-ancient w-full max-w-xs mx-auto block px-4 py-3 rounded-lg text-amber-100 placeholder-stone-500 text-center font-body text-lg"> <button id="start-btn" class="btn-ancient px-8 py-3 rounded-lg font-title text-lg text-amber-100 hover:text-amber-50"> Bắt Đầu Hành Trình </button>
+        </div>
+       </div>
+      </div><!-- GAME SCREEN -->
+      <div id="game-screen" class="hidden"><!-- Scene Container -->
+       <div class="card-ancient rounded-2xl overflow-hidden"><!-- Scene Header -->
+        <div id="scene-header" class="bg-gradient-to-r from-stone-900/80 to-stone-800/80 px-4 py-3 border-b border-stone-700/30">
+         <div class="flex items-center justify-between">
+          <div><span id="level-badge" class="inline-block bg-amber-900/60 text-amber-200 text-xs px-2 py-1 rounded-full font-semibold"> Màn 1 </span>
+           <h3 id="scene-title" class="font-title text-lg md:text-xl text-amber-100 mt-1">Ngôi Nhà Hoang Vắng</h3>
+          </div>
+          <div class="text-right">
+           <div class="text-amber-200/80 text-sm">
+            Điểm số
+           </div>
+           <div id="score-display" class="font-title text-xl text-amber-100">
+            0
+           </div>
+          </div>
+         </div>
+        </div><!-- Scene Illustration -->
+        <div id="scene-illustration" class="relative h-40 md:h-56 bg-gradient-to-b from-stone-900 to-stone-800 overflow-hidden">
+         <div class="absolute inset-0 flex items-center justify-center">
+          <div id="scene-visual" class="text-6xl md:text-8xl animate-float">
+           🏚️
+          </div>
+         </div><!-- Memory fragments collected -->
+         <div id="memory-fragments" class="absolute bottom-2 left-2 flex gap-1"><!-- Filled dynamically -->
+         </div>
+        </div><!-- Scene Description -->
+        <div class="p-4 md:p-6 border-b border-stone-700/30">
+         <p id="scene-description" class="text-stone-300 text-sm md:text-base leading-relaxed">Người chơi xuất hiện trong một căn nhà tranh tồi tàn, đổ nát, phảng phất mùi ẩm mốc và bụi thời gian...</p>
+        </div><!-- Question Area -->
+        <div id="question-area" class="p-4 md:p-6">
+         <div class="bg-stone-900/50 rounded-xl p-4 md:p-5 border border-stone-700/30">
+          <div class="flex items-start gap-3 mb-4"><span class="text-2xl">❓</span>
+           <p id="question-text" class="text-amber-100 text-base md:text-lg font-medium">Tác giả của truyện ngắn "Lão Hạc" là ai?</p>
+          </div>
+          <div class="space-y-3"><input type="text" id="answer-input" placeholder="Nhập câu trả lời của bạn..." class="input-ancient w-full px-4 py-3 rounded-lg text-amber-100 placeholder-stone-500 text-base">
+           <div class="flex flex-wrap gap-2"><button id="submit-answer-btn" class="btn-ancient flex-1 min-w-[120px] px-4 py-2.5 rounded-lg text-amber-100 font-semibold"> Xác Nhận </button> <button id="hint-btn" class="bg-stone-700/50 hover:bg-stone-700/70 border border-stone-600/50 px-4 py-2.5 rounded-lg text-stone-300 transition-all"> 💡 Gợi ý </button>
+           </div>
+          </div>
+         </div><!-- Feedback Area -->
+         <div id="feedback-area" class="hidden mt-4 p-4 rounded-xl">
+          <div class="flex items-start gap-3"><span id="feedback-icon" class="text-2xl">✨</span>
+           <div>
+            <p id="feedback-title" class="font-semibold text-lg mb-1">Chính xác!</p>
+            <p id="feedback-text" class="text-sm opacity-90"></p>
+           </div>
+          </div><button id="continue-btn" class="btn-ancient w-full mt-4 px-4 py-2.5 rounded-lg text-amber-100 font-semibold"> Tiếp Tục Hành Trình → </button>
+         </div><!-- Hint Area -->
+         <div id="hint-area" class="hidden mt-4 p-4 bg-amber-900/20 rounded-xl border border-amber-700/30">
+          <div class="flex items-start gap-3"><span class="text-xl">💡</span>
+           <p id="hint-text" class="text-amber-200/90 text-sm"></p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- END SCREEN -->
+      <div id="end-screen" class="hidden">
+       <div class="card-ancient rounded-2xl p-6 md:p-10 text-center animate-fade-in"><!-- Victory illustration -->
+        <div class="relative w-56 h-56 md:w-72 md:h-72 mx-auto mb-6">
+         <div class="absolute inset-0 bg-gradient-to-b from-amber-500/20 to-transparent rounded-full animate-glow"></div>
+         <div class="absolute inset-0 flex items-center justify-center">
+          <div class="text-center">
+           <div class="text-6xl md:text-7xl mb-2">
+            👴
+           </div>
+           <div class="text-4xl md:text-5xl">
+            🐕
+           </div>
+          </div>
+         </div><!-- Light rays effect -->
+         <div class="absolute inset-0 bg-gradient-to-t from-transparent via-amber-200/10 to-amber-100/20 rounded-full animate-pulse"></div>
+        </div>
+        <h2 class="font-title text-2xl md:text-4xl text-amber-200 mb-4">🌟 Linh Hồn Đã Được Giải Thoát! 🌟</h2>
+        <div class="max-w-xl mx-auto mb-6">
+         <p class="text-stone-300 text-base md:text-lg leading-relaxed mb-4">Nhờ sự dũng cảm và trí tuệ của Thám Tử <span id="end-player-name" class="text-amber-200 font-semibold"></span>, linh hồn Lão Hạc cuối cùng đã được giải thoát khỏi vòng lặp đau khổ.</p>
+         <p class="text-stone-400 text-sm md:text-base italic">Cậu Vàng và Lão Hạc đã đoàn tụ ở thế giới bên kia, nơi không còn đói khổ, không còn phải chia ly...</p>
+        </div><!-- Final Stats -->
+        <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto mb-6">
+         <div class="bg-stone-800/50 rounded-lg p-3 border border-stone-700/30">
+          <div class="text-amber-200/70 text-xs uppercase tracking-wide">
+           Tổng điểm
+          </div>
+          <div id="final-score" class="font-title text-2xl text-amber-100">
+           0
+          </div>
+         </div>
+         <div class="bg-stone-800/50 rounded-lg p-3 border border-stone-700/30">
+          <div class="text-amber-200/70 text-xs uppercase tracking-wide">
+           Ký ức
+          </div>
+          <div id="final-memories" class="font-title text-2xl text-amber-100">
+           10/10
+          </div>
+         </div>
+        </div><button id="restart-btn" class="btn-ancient px-8 py-3 rounded-lg font-title text-lg text-amber-100"> Chơi Lại </button>
+       </div>
+      </div>
+     </div>
+    </main><!-- Footer / Journal -->
+    <footer class="px-4 pb-4">
+     <div class="max-w-4xl mx-auto">
+      <div id="journal-container" class="hidden bg-stone-900/40 rounded-xl p-3 border border-stone-700/30">
+       <div class="flex items-center gap-2 mb-2"><span class="text-lg">📜</span> <span class="text-amber-200/80 text-sm font-semibold">Nhật Ký Thám Tử</span>
+       </div>
+       <div id="journal-entries" class="text-stone-400 text-xs md:text-sm space-y-1 max-h-20 overflow-y-auto"><!-- Journal entries will be added here -->
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script>
+    // Game Configuration and State
+    const defaultConfig = {
+      main_title: "Giải Cứu Linh Hồn Lão Hạc",
+      subtitle: "Hành trình xuyên thời gian của Thám Tử",
+      background_color: "#1a1510",
+      surface_color: "#2d2520",
+      text_color: "#e7e5e4",
+      primary_action_color: "#92400e",
+      secondary_action_color: "#d4af37"
+    };
+
+    // Game Data - Questions and Scenes
+    const gameScenes = [
+      {
+        level: 1,
+        title: "Ngôi Nhà Hoang Vắng – Ký ức về một gia đình",
+        visual: "🏚️",
+        description: "Bạn xuất hiện trong một căn nhà tranh tồi tàn, đổ nát, phảng phất mùi ẩm mốc và bụi thời gian. Hình ảnh Lão Hạc ngồi thẫn thờ, cô đơn hiện ra trước mắt...",
+        questions: [
+          {
+            text: "Tác giả của truyện ngắn \"Lão Hạc\" là ai?",
+            answers: ["nam cao", "namcao"],
+            hint: "Đây là một nhà văn hiện thực nổi tiếng của Việt Nam, tên ông có hai chữ, bắt đầu bằng chữ 'N'.",
+            explanation: "Nam Cao (1915-1951) là nhà văn hiện thực xuất sắc của văn học Việt Nam, tác giả của nhiều tác phẩm nổi tiếng như \"Lão Hạc\", \"Chí Phèo\", \"Đời thừa\"...",
+            memory: "Cuốn sách cũ"
+          },
+          {
+            text: "Lão Hạc có hoàn cảnh gia đình như thế nào?",
+            answers: ["vợ mất", "vợ chết", "góa vợ", "con trai đi xa", "nghèo khó", "cô đơn", "một mình"],
+            hint: "Lão sống một mình sau khi người thân của lão đều đã rời xa. Vợ lão đã không còn, con trai thì...",
+            explanation: "Lão Hạc là một nông dân nghèo, vợ mất sớm, con trai vì không có tiền cưới vợ nên phẫn chí bỏ đi phu đồn điền cao su. Lão sống cô đơn với Cậu Vàng.",
+            memory: "Bóng dáng con trai"
+          }
+        ]
+      },
+      {
+        level: 2,
+        title: "Người Bạn Tri Kỷ – Bóng hình Cậu Vàng",
+        visual: "🐕",
+        description: "Cảnh sân nhà Lão Hạc. Lão đang vuốt ve một chú chó vàng, ánh mắt tràn đầy yêu thương và nỗi buồn. Tiếng sủa vang vọng từ xa...",
+        questions: [
+          {
+            text: "Cậu Vàng có ý nghĩa gì đối với Lão Hạc?",
+            answers: ["kỷ vật", "con trai", "kỷ niệm", "người bạn", "tri kỷ", "gia đình", "tình thương"],
+            hint: "Cậu Vàng là kỷ vật của ai để lại cho Lão? Lão coi Cậu Vàng như thế nào?",
+            explanation: "Cậu Vàng là con chó do con trai Lão Hạc để lại trước khi đi xa. Với Lão, Cậu Vàng không chỉ là vật nuôi mà còn là kỷ vật, là người bạn, là 'đứa con' của lão.",
+            memory: "Hình ảnh Cậu Vàng"
+          },
+          {
+            text: "Nhân vật kể chuyện trong tác phẩm là ai?",
+            answers: ["ông giáo", "thầy giáo", "ong giao"],
+            hint: "Đây là người hàng xóm của Lão Hạc, có học thức, thường được Lão sang tâm sự...",
+            explanation: "Nhân vật kể chuyện là 'ông giáo' - người hàng xóm trí thức của Lão Hạc. Qua con mắt của ông giáo, ta thấy được nội tâm và số phận đau thương của Lão Hạc.",
+            memory: "Bóng dáng ông giáo"
+          }
+        ]
+      },
+      {
+        level: 3,
+        title: "Nỗi Đau và Sự Lựa Chọn – Quyết định nghiệt ngã",
+        visual: "🔥",
+        description: "Cảnh Lão Hạc ngồi lặng lẽ bên bếp lửa lạnh lẽo, nhìn ra màn đêm. Một cơn ho khan vang lên. Đôi mắt lão đỏ hoe, đầy nước mắt...",
+        questions: [
+          {
+            text: "Vì sao Lão Hạc phải bán Cậu Vàng?",
+            answers: ["không nuôi nổi", "đói", "nghèo", "tiền", "hết tiền", "không có ăn", "sợ tiêu vào tiền con"],
+            hint: "Lão đã cố gắng nuôi Cậu Vàng rất lâu, nhưng hoàn cảnh ngày càng khó khăn. Lão lo sợ điều gì nếu tiếp tục như vậy?",
+            explanation: "Lão Hạc quá nghèo, không thể nuôi nổi bản thân và Cậu Vàng. Lão sợ nếu tiếp tục, sẽ phải tiêu vào số tiền dành dụm cho con trai. Đây là quyết định đau đớn nhất đời lão.",
+            memory: "Nỗi day dứt"
+          },
+          {
+            text: "Tâm trạng của Lão Hạc sau khi bán Cậu Vàng như thế nào?",
+            answers: ["đau khổ", "ân hận", "day dứt", "khóc", "buồn", "hối hận", "dằn vặt"],
+            hint: "Khi kể lại chuyện bán Cậu Vàng cho ông giáo, Lão có biểu hiện gì? Lão tự trách mình điều gì?",
+            explanation: "Sau khi bán Cậu Vàng, Lão Hạc đau khổ, day dứt đến cùng cực. Lão khóc 'hu hu như con nít', tự trách mình là 'thằng già tệ lắm', đã lừa một con chó...",
+            memory: "Giọt nước mắt"
+          }
+        ]
+      },
+      {
+        level: 4,
+        title: "Bí Mật Cuối Cùng – Sự thật về cái chết",
+        visual: "💀",
+        description: "Màn đêm buông xuống. Tiếng động lạ vang lên từ căn nhà Lão Hạc. Ông giáo vội vàng chạy sang...",
+        questions: [
+          {
+            text: "Lão Hạc đã chết như thế nào?",
+            answers: ["ăn bả chó", "bả chó", "tự tử", "ăn bả", "tự vẫn"],
+            hint: "Cái chết của Lão rất đau đớn, dữ dội. Lão đã dùng thứ mà người ta thường dùng để đầu độc một loài vật...",
+            explanation: "Lão Hạc đã chọn cái chết bằng bả chó - chất độc cực mạnh. Lão chết trong đau đớn, vật vã, như một cách tự trừng phạt bản thân vì đã lừa Cậu Vàng.",
+            memory: "Sự thật đau lòng"
+          },
+          {
+            text: "Tại sao Lão Hạc lại chọn cách chết như vậy?",
+            answers: ["không muốn tiêu tiền con", "giữ tiền cho con", "tự trừng phạt", "chuộc tội", "lương tâm"],
+            hint: "Lão đã gửi ông giáo giữ hộ mảnh vườn và tiền. Lão không muốn điều gì xảy ra với số tài sản đó?",
+            explanation: "Lão Hạc chọn cái chết để không phải tiêu vào số tiền và mảnh vườn dành cho con. Đồng thời, đó cũng là cách lão tự trừng phạt vì đã 'lừa' Cậu Vàng - chết như một con chó.",
+            memory: "Tấm lòng cha"
+          }
+        ]
+      },
+      {
+        level: 5,
+        title: "Giải Thoát – Đoàn tụ ở thế giới bên kia",
+        visual: "✨",
+        description: "Ánh sáng dịu nhẹ bắt đầu lan tỏa. Những ký ức đau thương dần tan biến. Lão Hạc ngẩng đầu lên, đôi mắt lão sáng lên hy vọng...",
+        questions: [
+          {
+            text: "Qua câu chuyện, Nam Cao muốn ca ngợi phẩm chất gì của người nông dân?",
+            answers: ["trung thực", "lương thiện", "tự trọng", "nhân hậu", "thương con", "cao quý"],
+            hint: "Dù nghèo khổ, Lão Hạc vẫn giữ được điều gì mà nhiều người giàu có chưa chắc đã có?",
+            explanation: "Nam Cao ca ngợi phẩm chất cao quý của người nông dân: lương thiện, tự trọng, giàu tình yêu thương. Dù đói khổ, họ vẫn giữ được nhân cách trong sạch.",
+            memory: "Ánh sáng nhân cách"
+          },
+          {
+            text: "Câu nói nào của ông giáo thể hiện sự thay đổi cách nhìn về Lão Hạc?",
+            answers: ["không nên", "không biết", "chưa biết", "cuộc đời"],
+            hint: "Ông giáo từng nghi ngờ Lão Hạc, nhưng sau khi biết sự thật, ông đã rút ra bài học gì về cách nhìn người?",
+            explanation: "\"Chao ôi! Đối với những người ở quanh ta, nếu không cố tìm mà hiểu họ, thì ta chỉ thấy họ gàn dở, ngu ngốc...\" - Ông giáo nhận ra mình đã từng nhìn nhầm Lão Hạc.",
+            memory: "Bài học cuộc đời"
+          }
+        ]
+      }
+    ];
+
+    // Game State
+    let gameState = {
+      playerName: "",
+      currentScene: 0,
+      currentQuestion: 0,
+      score: 0,
+      memoriesCollected: 0,
+      journalEntries: [],
+      isPlaying: false
+    };
+
+    // DOM Elements
+    const elements = {
+      startScreen: document.getElementById('start-screen'),
+      gameScreen: document.getElementById('game-screen'),
+      endScreen: document.getElementById('end-screen'),
+      progressContainer: document.getElementById('progress-container'),
+      progressBar: document.getElementById('progress-bar'),
+      progressDog: document.getElementById('progress-dog'),
+      progressText: document.getElementById('progress-text'),
+      playerNameInput: document.getElementById('player-name-input'),
+      startBtn: document.getElementById('start-btn'),
+      levelBadge: document.getElementById('level-badge'),
+      sceneTitle: document.getElementById('scene-title'),
+      sceneVisual: document.getElementById('scene-visual'),
+      sceneDescription: document.getElementById('scene-description'),
+      questionText: document.getElementById('question-text'),
+      answerInput: document.getElementById('answer-input'),
+      submitAnswerBtn: document.getElementById('submit-answer-btn'),
+      hintBtn: document.getElementById('hint-btn'),
+      feedbackArea: document.getElementById('feedback-area'),
+      feedbackIcon: document.getElementById('feedback-icon'),
+      feedbackTitle: document.getElementById('feedback-title'),
+      feedbackText: document.getElementById('feedback-text'),
+      continueBtn: document.getElementById('continue-btn'),
+      hintArea: document.getElementById('hint-area'),
+      hintText: document.getElementById('hint-text'),
+      scoreDisplay: document.getElementById('score-display'),
+      memoryFragments: document.getElementById('memory-fragments'),
+      journalContainer: document.getElementById('journal-container'),
+      journalEntries: document.getElementById('journal-entries'),
+      endPlayerName: document.getElementById('end-player-name'),
+      finalScore: document.getElementById('final-score'),
+      finalMemories: document.getElementById('final-memories'),
+      restartBtn: document.getElementById('restart-btn'),
+      gameTitle: document.getElementById('game-title'),
+      gameSubtitle: document.getElementById('game-subtitle')
+    };
+
+    // Total questions count
+    const totalQuestions = gameScenes.reduce((sum, scene) => sum + scene.questions.length, 0);
+
+    // Initialize SDK
+    async function initializeApp() {
+      // Initialize Element SDK
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (config) => {
+            applyConfig(config);
+          },
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.background_color || defaultConfig.background_color,
+                set: (value) => window.elementSdk.setConfig({ background_color: value })
+              },
+              {
+                get: () => config.surface_color || defaultConfig.surface_color,
+                set: (value) => window.elementSdk.setConfig({ surface_color: value })
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => window.elementSdk.setConfig({ text_color: value })
+              },
+              {
+                get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                set: (value) => window.elementSdk.setConfig({ primary_action_color: value })
+              },
+              {
+                get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                set: (value) => window.elementSdk.setConfig({ secondary_action_color: value })
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["main_title", config.main_title || defaultConfig.main_title],
+            ["subtitle", config.subtitle || defaultConfig.subtitle]
+          ])
+        });
+      }
+
+      // Initialize Data SDK
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init({
+          onDataChanged: (data) => {
+            // Check for existing save data
+            if (data.length > 0) {
+              const latestSave = data[data.length - 1];
+              // Could implement save/load feature here
+            }
+          }
+        });
+        if (!result.isOk) {
+          console.error("Failed to initialize Data SDK");
+        }
+      }
+
+      // Setup event listeners
+      setupEventListeners();
+    }
+
+    // Apply configuration
+    function applyConfig(config) {
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+      // Update wrapper background
+      const wrapper = document.getElementById('app-wrapper');
+      if (wrapper) {
+        wrapper.style.background = `linear-gradient(180deg, ${bgColor} 0%, ${surfaceColor} 50%, ${bgColor} 100%)`;
+      }
+
+      // Update text colors
+      document.body.style.color = textColor;
+
+      // Update title and subtitle
+      if (elements.gameTitle) {
+        elements.gameTitle.textContent = config.main_title || defaultConfig.main_title;
+      }
+      if (elements.gameSubtitle) {
+        elements.gameSubtitle.textContent = config.subtitle || defaultConfig.subtitle;
+      }
+
+      // Update buttons with primary color
+      const buttons = document.querySelectorAll('.btn-ancient');
+      buttons.forEach(btn => {
+        btn.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${adjustColor(primaryColor, -20)} 100%)`;
+        btn.style.borderColor = secondaryColor;
+      });
+    }
+
+    // Utility function to adjust color brightness
+    function adjustColor(hex, percent) {
+      const num = parseInt(hex.replace('#', ''), 16);
+      const r = Math.min(255, Math.max(0, (num >> 16) + percent));
+      const g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + percent));
+      const b = Math.min(255, Math.max(0, (num & 0x0000FF) + percent));
+      return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      elements.startBtn.addEventListener('click', startGame);
+      elements.submitAnswerBtn.addEventListener('click', submitAnswer);
+      elements.answerInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') submitAnswer();
+      });
+      elements.hintBtn.addEventListener('click', showHint);
+      elements.continueBtn.addEventListener('click', nextQuestion);
+      elements.restartBtn.addEventListener('click', restartGame);
+    }
+
+    // Start Game
+    function startGame() {
+      const name = elements.playerNameInput.value.trim() || "Thám Tử Ẩn Danh";
+      gameState.playerName = name;
+      gameState.isPlaying = true;
+      gameState.currentScene = 0;
+      gameState.currentQuestion = 0;
+      gameState.score = 0;
+      gameState.memoriesCollected = 0;
+      gameState.journalEntries = [];
+
+      elements.startScreen.classList.add('hidden');
+      elements.gameScreen.classList.remove('hidden');
+      elements.progressContainer.classList.remove('hidden');
+      elements.journalContainer.classList.remove('hidden');
+
+      addJournalEntry(`🔮 ${name} bắt đầu hành trình giải cứu linh hồn Lão Hạc...`);
+      loadScene();
+    }
+
+    // Load Scene
+    function loadScene() {
+      const scene = gameScenes[gameState.currentScene];
+      const question = scene.questions[gameState.currentQuestion];
+
+      elements.levelBadge.textContent = `Màn ${scene.level}`;
+      elements.sceneTitle.textContent = scene.title;
+      elements.sceneVisual.textContent = scene.visual;
+      elements.sceneDescription.textContent = scene.description;
+      elements.questionText.textContent = question.text;
+      elements.answerInput.value = "";
+      elements.feedbackArea.classList.add('hidden');
+      elements.hintArea.classList.add('hidden');
+      elements.scoreDisplay.textContent = gameState.score;
+
+      updateProgress();
+      updateMemoryFragments();
+
+      // Add scene entry to journal if first question of scene
+      if (gameState.currentQuestion === 0) {
+        addJournalEntry(`📍 Đến ${scene.title}`);
+      }
+    }
+
+    // Submit Answer
+    function submitAnswer() {
+      const answer = elements.answerInput.value.trim().toLowerCase();
+      if (!answer) return;
+
+      const scene = gameScenes[gameState.currentScene];
+      const question = scene.questions[gameState.currentQuestion];
+
+      const isCorrect = question.answers.some(a => answer.includes(a.toLowerCase()));
+
+      if (isCorrect) {
+        gameState.score += 100;
+        gameState.memoriesCollected++;
+
+        elements.feedbackArea.classList.remove('hidden');
+        elements.feedbackArea.className = 'mt-4 p-4 rounded-xl bg-green-900/30 border border-green-700/50';
+        elements.feedbackIcon.textContent = '✨';
+        elements.feedbackTitle.textContent = 'Chính xác!';
+        elements.feedbackTitle.className = 'font-semibold text-lg mb-1 text-green-300';
+        elements.feedbackText.textContent = question.explanation;
+        elements.feedbackText.className = 'text-sm text-green-200/90';
+
+        addJournalEntry(`✨ Thu thập mảnh ký ức: ${question.memory}`);
+      } else {
+        elements.feedbackArea.classList.remove('hidden');
+        elements.feedbackArea.className = 'mt-4 p-4 rounded-xl bg-red-900/30 border border-red-700/50';
+        elements.feedbackIcon.textContent = '❌';
+        elements.feedbackTitle.textContent = 'Chưa chính xác...';
+        elements.feedbackTitle.className = 'font-semibold text-lg mb-1 text-red-300';
+        elements.feedbackText.textContent = question.explanation;
+        elements.feedbackText.className = 'text-sm text-red-200/90';
+        elements.continueBtn.textContent = 'Tiếp tục →';
+      }
+
+      elements.scoreDisplay.textContent = gameState.score;
+      updateProgress();
+      updateMemoryFragments();
+    }
+
+    // Show Hint
+    function showHint() {
+      const scene = gameScenes[gameState.currentScene];
+      const question = scene.questions[gameState.currentQuestion];
+
+      elements.hintArea.classList.remove('hidden');
+      elements.hintText.textContent = question.hint;
+    }
+
+    // Next Question
+    function nextQuestion() {
+      const scene = gameScenes[gameState.currentScene];
+
+      if (gameState.currentQuestion < scene.questions.length - 1) {
+        gameState.currentQuestion++;
+        loadScene();
+      } else if (gameState.currentScene < gameScenes.length - 1) {
+        gameState.currentScene++;
+        gameState.currentQuestion = 0;
+        loadScene();
+      } else {
+        endGame();
+      }
+    }
+
+    // Update Progress
+    function updateProgress() {
+      const progress = (gameState.memoriesCollected / totalQuestions) * 100;
+      elements.progressBar.style.width = `${progress}%`;
+      elements.progressDog.style.left = `${Math.max(5, Math.min(90, progress))}%`;
+      elements.progressText.textContent = `Mảnh ký ức: ${gameState.memoriesCollected}/${totalQuestions}`;
+    }
+
+    // Update Memory Fragments Display
+    function updateMemoryFragments() {
+      const fragments = [];
+      for (let i = 0; i < totalQuestions; i++) {
+        if (i < gameState.memoriesCollected) {
+          fragments.push('<span class="w-3 h-3 bg-amber-400/80 rounded-full inline-block"></span>');
+        } else {
+          fragments.push('<span class="w-3 h-3 bg-stone-600/50 rounded-full inline-block"></span>');
+        }
+      }
+      elements.memoryFragments.innerHTML = fragments.join('');
+    }
+
+    // Add Journal Entry
+    function addJournalEntry(text) {
+      gameState.journalEntries.unshift(text);
+      if (gameState.journalEntries.length > 5) {
+        gameState.journalEntries.pop();
+      }
+      elements.journalEntries.innerHTML = gameState.journalEntries
+        .map(entry => `<div class="opacity-80">${entry}</div>`)
+        .join('');
+    }
+
+    // End Game
+    async function endGame() {
+      elements.gameScreen.classList.add('hidden');
+      elements.endScreen.classList.remove('hidden');
+      elements.progressContainer.classList.add('hidden');
+
+      elements.endPlayerName.textContent = gameState.playerName;
+      elements.finalScore.textContent = gameState.score;
+      elements.finalMemories.textContent = `${gameState.memoriesCollected}/${totalQuestions}`;
+
+      // Save game completion
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create({
+          player_name: gameState.playerName,
+          current_level: gameScenes.length,
+          total_score: gameState.score,
+          memories_collected: gameState.memoriesCollected,
+          completed_at: new Date().toISOString()
+        });
+        if (!result.isOk) {
+          console.error("Failed to save game data");
+        }
+      }
+    }
+
+    // Restart Game
+    function restartGame() {
+      elements.endScreen.classList.add('hidden');
+      elements.startScreen.classList.remove('hidden');
+      elements.journalContainer.classList.add('hidden');
+      elements.playerNameInput.value = "";
+
+      gameState = {
+        playerName: "",
+        currentScene: 0,
+        currentQuestion: 0,
+        score: 0,
+        memoriesCollected: 0,
+        journalEntries: [],
+        isPlaying: false
+      };
+    }
+
+    // Initialize the app
+    initializeApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bd507413409211d',t:'MTc2ODMwODcyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<!-- ===== LEADERBOARD ===== -->
+<div id="leaderboard-panel"
+ class="fixed top-4 right-4 z-50 w-72 bg-stone-900/90 backdrop-blur-lg border border-amber-700/40 rounded-xl shadow-2xl p-3 text-stone-200 font-body">
+  <div class="flex items-center justify-between mb-2">
+    <div class="font-title text-amber-200 text-lg">🏆 Bảng Xếp Hạng</div>
+    <button onclick="toggleLeaderboard()" class="text-stone-400 hover:text-amber-200">✖</button>
+  </div>
+  <div id="leaderboard-list" class="space-y-2 text-sm max-h-64 overflow-y-auto"></div>
+</div>
+<script>
+let leaderboardVisible = true;
+function toggleLeaderboard(){
+  leaderboardVisible = !leaderboardVisible;
+  document.getElementById("leaderboard-panel").style.display =
+    leaderboardVisible ? "block" : "none";
+}
+async function loadLeaderboard(){
+  if(!window.dataSdk) return;
+  const result = await window.dataSdk.list();
+  if(!result.isOk) return;
+  const scores = result.data
+    .filter(x => x.total_score)
+    .sort((a,b)=>b.total_score - a.total_score)
+    .slice(0,10);
+  const list = document.getElementById("leaderboard-list");
+  list.innerHTML = scores.map((p,i)=>`
+    <div class="flex justify-between bg-stone-800/60 rounded-lg px-3 py-2 border border-stone-700/40">
+      <div>
+        <span class="text-amber-300 font-semibold">#${i+1}</span>
+        <span class="ml-1">${p.player_name || "Ẩn danh"}</span>
+      </div>
+      <div class="text-amber-200 font-title">${p.total_score}</div>
+    </div>
+  `).join("");
+}
+setInterval(loadLeaderboard, 5000);
+document.addEventListener("DOMContentLoaded", loadLeaderboard);
+</script>
+<!-- ===== END LEADERBOARD ===== -->
+
+</body>
+</html>
