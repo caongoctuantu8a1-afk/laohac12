@@ -632,12 +632,12 @@
 
     // Load Scene
     function loadScene() {
-             gameState.answeredCurrentQuestion = false;
-       elements.submitAnswerBtn.disabled = false;
-       elements.submitAnswerBtn.classList.remove(
+      gameState.answeredCurrentQuestion = false;
+      elements.submitAnswerBtn.disabled = false;
+      elements.submitAnswerBtn.classList.remove(
          "opacity-50",
          "cursor-not-allowed"
-       );
+      );
       const scene = gameScenes[gameState.currentScene];
       const question = scene.questions[gameState.currentQuestion];
 
@@ -691,6 +691,7 @@
         elements.feedbackText.className = 'text-sm text-green-200/90';
 
         addJournalEntry(`✨ Thu thập mảnh ký ức: ${question.memory}`);
+      
       } else {
         elements.feedbackArea.classList.remove('hidden');
         elements.feedbackArea.className = 'mt-4 p-4 rounded-xl bg-red-900/30 border border-red-700/50';
@@ -701,7 +702,7 @@
         elements.feedbackText.className = 'text-sm text-red-200/90';
         elements.continueBtn.textContent = 'Tiếp tục →';
       }
-
+      elements.continueBtn.classList.remove('hidden');
       elements.scoreDisplay.textContent = gameState.score;
       updateProgress();
       updateMemoryFragments();
@@ -803,7 +804,7 @@
         score: 0,
         memoriesCollected: 0,
         journalEntries: [],
-        isPlaying: false
+        isPlaying: false,
         answeredCurrentQuestion: false
       };
     }
