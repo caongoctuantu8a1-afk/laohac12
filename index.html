@@ -449,6 +449,7 @@
       memoriesCollected: 0,
       journalEntries: [],
       isPlaying: false
+      answeredCurrentQuestion: false // 🔒 khóa chấm điểm 1 câu
     };
 
     // DOM Elements
@@ -631,6 +632,12 @@
 
     // Load Scene
     function loadScene() {
+             gameState.answeredCurrentQuestion = false;
+       elements.submitAnswerBtn.disabled = false;
+       elements.submitAnswerBtn.classList.remove(
+         "opacity-50",
+         "cursor-not-allowed"
+       );
       const scene = gameScenes[gameState.currentScene];
       const question = scene.questions[gameState.currentQuestion];
 
@@ -655,6 +662,7 @@
 
     // Submit Answer
     function submitAnswer() {
+      if (gameState.answeredCurrentQuestion) return;
       const answer = elements.answerInput.value.trim().toLowerCase();
       if (!answer) return;
 
@@ -666,6 +674,13 @@
       if (isCorrect) {
         gameState.score += 100;
         gameState.memoriesCollected++;
+        gameState.answeredCurrentQuestion = true;
+
+        elements.submitAnswerBtn.disabled = true;
+        elements.submitAnswerBtn.classList.add(
+          "opacity-50",
+          "cursor-not-allowed"
+        );
 
         elements.feedbackArea.classList.remove('hidden');
         elements.feedbackArea.className = 'mt-4 p-4 rounded-xl bg-green-900/30 border border-green-700/50';
