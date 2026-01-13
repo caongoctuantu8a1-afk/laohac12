@@ -794,6 +794,55 @@
 
     // Initialize the app
     initializeApp();
+ 
+<div id="leaderboard-panel"
+ class="fixed top-4 right-4 z-50 w-72 bg-stone-900/90 backdrop-blur-lg border border-amber-700/40 rounded-xl shadow-2xl p-3 text-stone-200 font-body">
+
+  <div class="flex items-center justify-between mb-2">
+    <div class="font-title text-amber-200 text-lg">🏆 Bảng Xếp Hạng</div>
+    <button onclick="toggleLeaderboard()" class="text-stone-400 hover:text-amber-200">✖</button>
+  </div>
+
+  <div id="leaderboard-list" class="space-y-2 text-sm max-h-64 overflow-y-auto"></div>
+</div>
+
+<script>
+let leaderboardVisible = true;
+
+function toggleLeaderboard(){
+  leaderboardVisible = !leaderboardVisible;
+  document.getElementById("leaderboard-panel").style.display = leaderboardVisible ? "block" : "none";
+}
+
+async function loadLeaderboard(){
+  if(!window.dataSdk) return;
+
+  const data = await window.dataSdk.list();
+  if(!data.isOk) return;
+
+  const scores = data.data
+    .filter(x => x.total_score)
+    .sort((a,b)=>b.total_score - a.total_score)
+    .slice(0,10);
+
+  const list = document.getElementById("leaderboard-list");
+
+  list.innerHTML = scores.map((p,i)=>`
+    <div class="flex justify-between bg-stone-800/60 rounded-lg px-3 py-2 border border-stone-700/40">
+      <div>
+        <span class="text-amber-300 font-semibold">#${i+1}</span>
+        <span class="ml-1">${p.player_name || "Ẩn danh"}</span>
+      </div>
+      <div class="text-amber-200 font-title">${p.total_score}</div>
+    </div>
+  `).join("");
+}
+
+/* Auto update leaderboard */
+setInterval(loadLeaderboard, 4000);
+document.addEventListener("DOMContentLoaded", loadLeaderboard);
+</script>
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bd507413409211d',t:'MTc2ODMwODcyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
