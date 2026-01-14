@@ -784,10 +784,12 @@
           memories_collected: gameState.memoriesCollected,
           completed_at: new Date().toISOString()
         });
-        if (!result.isOk) {
-          console.error("Failed to save game data");
+      
+        if (result.isOk && window.refreshLeaderboard) {
+          window.refreshLeaderboard();
         }
       }
+
     }
 
     // Restart Game
@@ -824,34 +826,64 @@
 </div>
 <script>
 let leaderboardVisible = true;
+
 function toggleLeaderboard(){
   leaderboardVisible = !leaderboardVisible;
   document.getElementById("leaderboard-panel").style.display =
     leaderboardVisible ? "block" : "none";
 }
+
 async function loadLeaderboard(){
-  if(!window.dataSdk) return;
-  const result = await window.dataSdk.list();
-  if(!result.isOk) return;
-  const scores = result.data
-    .filter(x => x.total_score)
-    .sort((a,b)=>b.total_score - a.total_score)
-    .slice(0,10);
-  const list = document.getElementById("leaderboard-list");
-  list.innerHTML = scores.map((p,i)=>`
-    <div class="flex justify-between bg-stone-800/60 rounded-lg px-3 py-2 border border-stone-700/40">
-      <div>
-        <span class="text-amber-300 font-semibold">#${i+1}</span>
-        <span class="ml-1">${p.player_name || "Ẩn danh"}</span>
+  if (!window.dataSdk || !window.dataSdk.list) return;
+
+  try {
+    const result = await window.dataSdk.list();
+    if (!result.isOk || !Array.isArray(result.data)) return;
+
+    // Chuẩn hóa dữ liệu
+    const scores = result.data
+      .filter(x => typeof x.total_score === "number")
+      .sort((a, b) => b.total_score - a.total_score)
+      .slice(0, 10);
+
+    const list = document.getElementById("leaderboard-list");
+
+    if (scores.length === 0) {
+      list.innerHTML = `
+        <div class="text-center text-stone-400 text-sm italic">
+          Chưa có người chơi nào
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = scores.map((p, i) => `
+      <div class="flex justify-between items-center
+                  bg-stone-800/60 rounded-lg px-3 py-2
+                  border border-stone-700/40">
+        <div class="truncate">
+          <span class="text-amber-300 font-semibold">#${i + 1}</span>
+          <span class="ml-1">${p.player_name || "Ẩn danh"}</span>
+        </div>
+        <div class="text-amber-200 font-title">
+          ${p.total_score}
+        </div>
       </div>
-      <div class="text-amber-200 font-title">${p.total_score}</div>
-    </div>
-  `).join("");
+    `).join("");
+
+  } catch (err) {
+    console.error("Leaderboard error:", err);
+  }
 }
-setInterval(loadLeaderboard, 5000);
-document.addEventListener("DOMContentLoaded", loadLeaderboard);
+
+// Load lần đầu + auto refresh
+document.addEventListener("DOMContentLoaded", () => {
+  loadLeaderboard();
+  setInterval(loadLeaderboard, 5000);
+});
+
+// 👉 Cho phép gọi từ game khi endGame
+window.refreshLeaderboard = loadLeaderboard;
 </script>
-<!-- ===== END LEADERBOARD ===== -->
 
 </body>
 </html>
