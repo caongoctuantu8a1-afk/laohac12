@@ -439,6 +439,20 @@
         ]
       }
     ];
+    // ===== AUDIO STATE =====
+    let audioEnabled = true;
+    
+    function playBackgroundMusic() {
+      const music = document.getElementById("bg-music");
+      if (!music) return;
+      music.volume = 0.3;
+      music.play().catch(()=>{});
+    }
+    
+    function stopBackgroundMusic() {
+      const music = document.getElementById("bg-music");
+      if (music) music.pause();
+    }
 
     // Game State
     let gameState = {
@@ -628,6 +642,7 @@
 
       addJournalEntry(`🔮 ${name} bắt đầu hành trình giải cứu linh hồn Lão Hạc...`);
       loadScene();
+      playBackgroundMusic();
     }
 
     // Load Scene
@@ -658,6 +673,10 @@
       if (gameState.currentQuestion === 0) {
         addJournalEntry(`📍 Đến ${scene.title}`);
       }
+     // 🔊 Đọc câu hỏi
+      setTimeout(() => {
+        speakQuestion(elements.questionText.textContent);
+      }, 300);
     }
 
     // Submit Answer
@@ -719,6 +738,7 @@
 
     // Next Question
     function nextQuestion() {
+      speechSynthesis.cancel();
       const scene = gameScenes[gameState.currentScene];
 
       if (gameState.currentQuestion < scene.questions.length - 1) {
@@ -767,6 +787,7 @@
 
     // End Game
     async function endGame() {
+      stopBackgroundMusic();
       elements.gameScreen.classList.add('hidden');
       elements.endScreen.classList.remove('hidden');
       elements.progressContainer.classList.add('hidden');
@@ -815,7 +836,13 @@
     initializeApp();
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bd507413409211d',t:'MTc2ODMwODcyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<!-- ===== LEADERBOARD ===== -->
+
+  <!-- ===== AUDIO ===== -->
+<audio id="bg-music" loop preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_18f4b93b60.mp3" type="audio/mpeg">
+</audio>
+
+  <!-- ===== LEADERBOARD ===== -->
 <div id="leaderboard-panel"
  class="fixed top-4 right-4 z-50 w-72 bg-stone-900/90 backdrop-blur-lg border border-amber-700/40 rounded-xl shadow-2xl p-3 text-stone-200 font-body">
   <div class="flex items-center justify-between mb-2">
